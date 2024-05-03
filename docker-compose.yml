@@ -1,0 +1,39 @@
+services:
+  web:
+    container_name: librarian
+    build: ./app/
+      # context: ./app/
+      # dockerfile: ./app/Dockerfile
+    links:
+      - db
+    volumes:
+      - ./app/:/app/
+      - ./logs/:/var/www/logs/
+    ports:
+      - "8000:80"
+  # TODO: Docker secrets
+  # files:
+  db:
+    image: mariadb
+    container_name: librarian-db
+    restart: always
+    environment: # TODO: Вставить пароли. Или использвать Docker secrets
+      MYSQL_ROOT_PASSWORD: "example"
+      MYSQL_USER: "dev-user"
+      MYSQL_PASSWORD: "dev-password"
+      MYSQL_DATABASE: "dev-database"
+    # volumes:
+    #   - ./db/data/:/var/lib/mysql
+    ports:
+      - "8002:3306"
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: librarian-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    links:
+      - db
+    ports:
+      - "8001:80"
