@@ -123,11 +123,17 @@ phpmyadmin слушает на `http://localhost:8001`. Логин по умол
 пароль - example. В будующем это нужно заменить на что-то более реальное.
 Желательно использовать `Docker secrets`.
 
-- Сделать бэкап БД:
+- Сделать бэкап отдельной таблицы:
     ```
-    docker exec librarian-db mysqldump [--user yourusername] [--password=yourpassword] databasename > ./db/dump.sql
+    docker exec librarian-db mariadb-dump [--user yourusername] [--password=yourpassword] databasename > ./db/dump.sql
     ```
-- Восстановить бэкап БД:
+- Восстановить бэкап отдельной таблицы:
     ```
-    docker exec -i librarian-db mysql [--user yourusername] [--password=yourpassword] databasename < ./db/dump.sql
+    docker exec -i librarian-db sh -c 'exec mariadb --user root --password=example <databasename>' < ./db/dump.sql
     ```
+- Создание таблицы при первичнос запуске контейнера: (TODO: автоматизированый скрипт)
+    ```
+    docker exec librarian-db mariadb --user root --password=example --execute="CREATE DATABASE <databasename>;"
+    ```
+
+
