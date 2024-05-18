@@ -1,0 +1,1 @@
+[{"qtype":"GET","name":"auth","path":["auth","auth\n"],"variables":["auth/auth"],"handler":"auth_handle"},{"qtype":"POST","name":"foo","path":["bar","baz\n"],"variables":["bar/baz"],"handler":"foobar"},{"qtype":"UPDATE","name":"aaaaaaa","path":["ooo","eee\n"],"variables":["ooo/eee"],"handler":"aaaaaaa_handle"}]
