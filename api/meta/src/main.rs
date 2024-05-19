@@ -4,7 +4,7 @@ use serde_json;
 
 use indoc::indoc;
 
-#[derive(PartialEq, Default, Deserialize, Serialize)]
+#[derive(PartialEq, Default, Deserialize, Serialize, Clone)]
 enum QType {
     #[default]
     GET,
@@ -33,6 +33,11 @@ struct Entry {
     path: Vec<String>,
     variables: Vec<String>,
     handler: String,
+}
+
+struct HandlerInfo {
+    name: String,
+    qtype: QType,
 }
 
 
@@ -134,7 +139,14 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("Модуль с запросами будет сохранен в файл requests.rs. ");
 
         let mut file = File::create("./requests.rs")?;
-        let mut handler_names: Vec<String> = Vec::new();
+        let mut handler_names: Vec<HandlerInfo> = Vec::new();
+
+        file.write_all(r#"use warp::Filter;
+use warp::reply::Response;
+use std::collections::HashMap;
+use warp::Rejection;
+"#.as_bytes())?;
+
         for e in &entries {
             handler_names.push(generate_code(&mut file, e)?);
         }
@@ -164,8 +176,8 @@ fn print(text: &str) -> std::io::Result<()> {
     Ok(())
 }
 
-fn generate_code(file: &mut File, entry: &Entry) -> io::Result<String> {
-    let mut code = format!(r#"
+fn generate_code(file: &mut File, entry: &Entry) -> io::Result<HandlerInfo> {
+    let mut code = format!( r#"
 pub fn build_{name}() -> impl Filter<Error = Rejection> {{
     warp::{qtype}()"#,
             name = entry.name.trim(),
@@ -187,7 +199,8 @@ pub fn build_{name}() -> impl Filter<Error = Rejection> {{
         "#, handler = entry.handler));
     } else if entry.qtype == QType::POST {
         // TODO подумать над ограничением потока
-        code.push_str(&format!(r#".and(warp::body::bytes()).map(|bytes: bytes::Bytes| {handler}(p))
+        code.push_str(&format!(r#".and(warp::body::bytes()).map(|p: bytes::Bytes| {handler}(p))
+}}
         "#, handler = entry.handler));
     } else {
         unimplemented!()
@@ -195,15 +208,30 @@ pub fn build_{name}() -> impl Filter<Error = Rejection> {{
 
     file.write_all(code.as_bytes())?;
 
-    Ok(entry.handler.clone())
+    Ok(
+        HandlerInfo {
+            name: entry.handler.clone(),
+            qtype: entry.qtype.clone(),
+        }
+    )
 }
 
 // TODO добавить вариант для POST
-fn generate_handlers(file: &mut File, name: String) -> io::Result<()> {
+fn generate_handlers(file: &mut File, handler: HandlerInfo) -> io::Result<()> {
+    let param_type: &str;
+    if handler.qtype == QType::GET {
+        param_type = "HashMap<String, String>";
+    } else if handler.qtype == QType::POST {
+        param_type = "bytes::Bytes";
+    } else {
+        unimplemented!()
+    }
+
     let code = format!(r#"
-pub fn {name}(p: HashMap<String, String>) -> Response {{
-    
-}}"#);
+pub fn {name}(p: {param_type}) -> Response {{
+    todo!()
+}}
+"#, name = handler.name);
 
     file.write_all(code.as_bytes())?;
     

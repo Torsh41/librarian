@@ -1,0 +1,1 @@
+[{"qtype":"GET","name":"foo","path":["foo","bar","baz\n"],"variables":[],"handler":"foo_handle"},{"qtype":"POST","name":"auth","path":["auth\n"],"variables":[],"handler":"auth123"}]
