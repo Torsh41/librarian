@@ -19,9 +19,9 @@ services:
     restart: always
     environment: # TODO: Вставить пароли. Или использвать Docker secrets
       MYSQL_ROOT_PASSWORD: "example"
-      MYSQL_USER: "dev-user"
-      MYSQL_PASSWORD: "dev-password"
-      MYSQL_DATABASE: "dev-database"
+      MYSQL_USER: "dev_user"
+      MYSQL_PASSWORD: "dev_password"
+      MYSQL_DATABASE: "dev_database"
     # volumes:
     #   - ./db/data/:/var/lib/mysql
     ports:
