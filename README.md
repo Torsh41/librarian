@@ -123,6 +123,24 @@ phpmyadmin слушает на `http://localhost:8001`. Логин по умол
 пароль - example. В будующем это нужно заменить на что-то более реальное.
 Желательно использовать `Docker secrets`.
 
+
+#### Автоматизированные скрипты:
+
+Все бэкап файлы имеют следующий формат:
+<database-name>.sql
+
+- Сделать бэкап всех баз данных (DATABASE) сгенерированных разработчиком:
+    ```
+    bash db-export.sh
+    ```
+- Востановить все базы данных (DATABASE) по бэкапом в дирректории `./db/`:
+    ```
+    bash db-import.sh
+    ```
+
+
+#### Отдельные комманды:
+
 - Сделать бэкап отдельной таблицы:
     ```
     docker exec librarian-db mariadb-dump [--user yourusername] [--password=yourpassword] databasename > ./db/dump.sql
