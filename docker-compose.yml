@@ -14,8 +14,9 @@ services:
   # TODO: Docker secrets
   # files:
   db:
-    image: mariadb
+    # image: mariadb
     container_name: librarian-db
+    build: ./db/
     restart: always
     environment: # TODO: Вставить пароли. Или использвать Docker secrets
       MYSQL_ROOT_PASSWORD: "example"
