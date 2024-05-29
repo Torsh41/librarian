@@ -87,7 +87,7 @@ if (strpos($url, 'php/template/pages/recurring/work_info')) {
 
 
         <!-- тут будут общие скрипты для каждой страницы указаны в schemas/meta.php-->
-        
+        <script src="/scripts/header/search_animation.js"></script><!-- При наведение на поиск -->
         
         <!-- тут будут уникальные js скрипты для каждой страницы -->
         <?php
