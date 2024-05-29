@@ -63,15 +63,18 @@ section.fooler_common_info > *{
 section.fooler_common_info > div{
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: stretch;
+}
+section.fooler_common_info > div > div{
+    font-size: 30px;
 }
 .fooler_common_info > a{
-    font-size: 48px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
 }
 .fooler_common_info > a > img{
+    font-size: 48px;
     height: 56px;
 }
 

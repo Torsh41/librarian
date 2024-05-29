@@ -1,0 +1,112 @@
+div.sign_in_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 80px;
+}
+
+form.sign_in_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-size: 48px;
+}
+
+input::placeholder{
+    font-size: 20px;
+    color: #BCBCBC;
+    padding: 4px 0;
+}
+
+form.sign_in_form > input{
+    border: none;
+    border-bottom: 2px solid #BCBCBC;
+    margin-top: 46px;
+    width: 580px;
+
+    font-size: 20px;
+    color: #083476;
+}
+
+div.sign_in_capcha{
+    width: 580px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+div.sign_in_capcha > input{
+    border: none;
+    border-bottom: 2px solid #BCBCBC;
+    margin-top: 46px;
+    width: 270px;
+
+    font-size: 20px;
+    color: #083476;
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
+
+div.sign_in_capcha > img{
+    height: 60px;
+    width: 280px;
+    background-color: #D9D9D9;
+}
+
+div.sign_in_checkbox_container{
+    width: 580px;
+    
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 24px;
+}
+
+div.sign_in_checkbox_container > div{
+    width: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+div.sign_in_checkbox_container > div > input{
+    width: 25px;
+}
+
+div.sign_in_checkbox_container > label{
+    color: #083476;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.blue_gradient_button{
+    border-radius: 50px;
+    background: linear-gradient(92.36deg, rgba(24, 92, 195, 0.8) 0%, rgba(8, 52, 118, 0.8) 96.42%);
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 20px;
+}
+button.but{
+    background-color: transparent;
+    font-size: 24px;
+    padding: 2px 10px;
+    padding-bottom: 4px;
+    color: #FFFFFF;
+
+    transition: font-size 0.3s;
+}
+
+.blue_gradient_button:hover > button.but{
+    font-size: 26px;
+}
+

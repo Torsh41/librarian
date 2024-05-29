@@ -40,7 +40,9 @@ $meta = [
         'title'=>'Регистрация',
         'description'=>'присоединяййтесь к нам',
         'scripts'=>[],
-        'style'=>[],
+        'style'=>[
+            '/css/pages/sign_in.css',
+        ],
     ],
     'php/template/pages/recurring/works_info'=>[
         'title'=> $meta_name_book,
