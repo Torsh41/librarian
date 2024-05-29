@@ -1,0 +1,118 @@
+header, div.under_header{
+    width: 96%; /*остальное на padding*/
+    height: 90px;
+    padding: 0 2%; /* Отступы: сверху и снизу 0, слева и справа 3% */
+
+    background-color: #185CC3;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /*Вертикально дочерние элементы занимают все пространство*/
+    justify-content: space-between; /*Все дочернии элементы на одинаковом расстоянии друг от друга*/
+}
+
+header *{
+    color: #FFFFFF; /*цвет шрифта всех дочерних элементов*/
+}
+
+div.under_header{
+    position: static;
+}
+
+
+
+
+nav{
+    flex-grow: 1; /*Занимает все пространство родительского при display:flex;*/
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav > *{ /*ко всем непосредственным дочерним объектам*/
+    flex-grow: 1; /*Одинаковый размер всех элементов на всю длину*/
+}
+
+
+
+
+ul.ref_on_pages, ul.ref_on_sign{
+    display: flex;
+    flex-direction: row;
+
+    font-size: 28px;
+}
+ul.ref_on_pages > *, ul.ref_on_sign > *{
+    margin: 0 10px;
+}
+
+.header_logo{
+    flex-grow: 1;
+
+    display: flex;
+    align-items: stretch;
+}
+.header_logo *{
+    font-size: 48px;
+    height: 56px;
+}
+
+ul.ref_on_pages{
+    flex-grow: 6;
+}
+
+ul.ref_on_sign{
+    flex-grow: 2;
+
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+
+/*Это нужно поменять с помощью php или js, типа если пользователь авторизовался это показать а авторизацию с входом убрать*/
+.header_search_form, .header_add_work, .header_user{
+    display: none;
+}
+
+
+
+.header_icon_and_button{
+    display: flex;
+    align-items: center;
+}
+
+img.header_icon{
+    width: 18px;
+    height: 18px;
+}
+img.icon_person{
+    width: 40px;
+    height: 40px;
+    filter: invert(1);
+    padding: 1px 3px;
+}
+div.icon_person{
+
+    border-radius: 60px;
+    border: 4px solid #FFFFFF;
+
+    margin-left: 10px;
+}
+
+
+a.reg_button{
+    background-color: #FFFFFF;
+    color: #185CC3;
+
+    border-radius: 15px;
+    border: 4px solid #043785;
+
+    padding: 5px 8px;
+}

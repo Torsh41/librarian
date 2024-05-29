@@ -72,6 +72,9 @@ if (strpos($url, 'php/template/pages/recurring/work_info')) {
 
 <?php }?>
         <!-- тут будут общие стили для всех страниц -->
+        <link rel="stylesheet" href="/css/reset.css"> <!-- Сносит все стили -->
+        <link rel="stylesheet" href="/css/for_all.css"> <!-- Общие стили для всех страниц -->
+        <link rel="stylesheet" href="/css/header/header.css"> <!-- Для Header -->
         
         <!-- тут будут уникальные стили для каждой страницы указаны в schemas/meta.php -->
         <?php
