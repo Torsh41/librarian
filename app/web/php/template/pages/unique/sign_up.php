@@ -1,6 +1,7 @@
 <!-- Подключаем заголовок -->
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
 
+<!-- <?php print_r($_SESSION['user_ID']); ?> -->
 <!-- Взаимодействие с формой -->
 <?php
     $error_message = "";
@@ -19,7 +20,8 @@
             $error_message = "Неверно указан пароль";
         } else {
             // Пароль совпал
-            // $_SESSION['user_ID'] = $res;
+            // echo "Успех!\n";
+            $_SESSION['user_ID'] = $res;
         }
     }
 ?>
