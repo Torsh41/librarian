@@ -253,23 +253,24 @@ EOT; // @note: the '@' char in the middle of regex is escaped
         int $resource_type_ID,
         int $tags,
         string $file_path,
-        string $preview_file_path,
+        string $icon_path,
         string $author,
         string $title, // the short version
         string $publication_name,
         string $description
     ): void {
         $stmt = $this->prepare("INSERT INTO " . self::DB_TABLE_RESOURCES .
-            " (title, author, publication_name, description, file_path," .
-            " publisher, resource_type_ID, tags) VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+            " (title, author, publication_name, description, file_path, icon_path," .
+            " publisher, resource_type_ID, tags) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);");
         $stmt->bindParam(1, $title, PDO::PARAM_STR);
         $stmt->bindParam(2, $author, PDO::PARAM_STR);
         $stmt->bindParam(3, $publication_name, PDO::PARAM_STR);
         $stmt->bindParam(4, $description, PDO::PARAM_STR);
         $stmt->bindParam(5, $file_path, PDO::PARAM_STR);
-        $stmt->bindParam(6, $publisher_id, PDO::PARAM_INT);
-        $stmt->bindParam(7, $resource_type_ID, PDO::PARAM_INT);
-        $stmt->bindParam(8, $tags, PDO::PARAM_INT);
+        $stmt->bindParam(6, $icon_path, PDO::PARAM_STR);
+        $stmt->bindParam(7, $publisher_id, PDO::PARAM_INT);
+        $stmt->bindParam(8, $resource_type_ID, PDO::PARAM_INT);
+        $stmt->bindParam(9, $tags, PDO::PARAM_INT);
         $stmt->execute();
     }
             
