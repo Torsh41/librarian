@@ -129,7 +129,35 @@ EOT;
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getCategoryNameById($categoryId) {
+        $stmt = $this->prepare("SELECT tag_name FROM tags WHERE tags_ID = ?");
+        $stmt->execute([$categoryId]);
+        $category = $stmt->fetchColumn();
+        return $category;
+    }
+    public function getBookId($bookId) {
+        $sql = "SELECT 
+                    r.resources_ID, 
+                    r.title, 
+                    r.author, 
+                    r.publication_name, 
+                    r.publisher, 
+                    r.pages, 
+                    r.description, 
+                    r.tags, 
+                    r.rating, 
+                    r.file_path, 
+                    r.icon_path, 
+                    rt.type_name 
+                FROM " . self::DB_TABLE_RESOURCES . " r
+                JOIN " . self::DB_TABLE_RESOURCE_TYPES . " rt ON r.resource_type_ID = rt.type_ID
+                WHERE r.resources_ID = ?";
 
+        $stmt = $this->prepare($sql);
+        $stmt->execute([$bookId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     public function user_verify_password(string $email, #[\SensitiveParameter] string $password): int|false|null {
         $stmt = $this->prepare("SELECT user_ID, password_hash FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
         $stmt->execute([$email]);
