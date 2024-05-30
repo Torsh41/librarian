@@ -1,6 +1,46 @@
 <!-- Подключаем заголовок -->
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
 
+<!-- Взаимодействие с формой -->
+<?php
+    $error_message = "";
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        if ($password != $confirm_password) {
+            $error_message = "Пароли не совпадают";
+        } else {
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/php/function/ConnectionDB.php');
+            $db = new ConnectionDB();
+            $res = $db->user_insert($username, $email, $password);
+
+            switch ($res) {
+            case DBUserResult::Valid:
+                break;
+            case DBUserResult::InvalidUsernameRegex:
+                $error_message = "Недоступные символы в login";
+                break;
+            case DBUserResult::InvalidUsernameDatabase:
+                $error_message = "Указаный login уже используется";
+                break;
+            case DBUserResult::InvalidEmailRegex:
+                $error_message = "Недоступные символы в email";
+                break;
+            case DBUserResult::InvalidEmailDatabase:
+                $error_message = "Указаный email уже используется";
+                break;
+            case DBUserResult::InvalidEmailNonExistant:
+                $error_message = "Не существующий email";
+                break;
+            }
+        }
+    }
+?>
+
 <body>
     <!-- Подключаем header -->
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
@@ -8,7 +48,7 @@
     <!-- Основное содержание формы Регистрации -->
     <div>
         <h1>Регистрация</h1>
-        <form action="registration_handler.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <input type="text" id="username" name="username" placeholder="Придумайте логин" required>
             <input type="email" id="email" name="email" placeholder="Укажите email" required>
 
@@ -24,6 +64,8 @@
             </div>
 
             <button type="submit">Зарегистрироваться</button>
+            <span class="error_label"><?php echo $error_message; ?></span>
+
         </form>
     </div>
 
