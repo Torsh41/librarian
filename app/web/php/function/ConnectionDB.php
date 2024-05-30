@@ -46,16 +46,22 @@ EOT; // @note: the '@' char in the middle of regex is escaped
     }
 
     // @return null - No user with such email
-    //          true - Success; Password matches
     //          false - Failure; Password does not match
-    public function user_verify_password(string $email, #[\SensitiveParameter] string $password): bool|null {
-        $stmt = $this->prepare("SELECT password_hash FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
+    //          int - Success; Password matches; Return user_ID
+    public function user_verify_password(string $email, #[\SensitiveParameter] string $password): int|false|null {
+        $stmt = $this->prepare("SELECT user_ID, password_hash FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
         $stmt->execute([$email]);
+        $stmt->bindColumn("user_ID", $id);
         $stmt->bindColumn("password_hash", $hash);
         if (!$stmt->fetch(PDO::FETCH_BOUND)) {
             return null;
         }
-        return password_verify($password, $hash);
+
+        if (!password_verify($password, $hash)) {
+            return false;
+        }
+
+        return $id;
     }
 
     // @return DBUserResult enum values. They are self explanatory.
@@ -115,6 +121,7 @@ EOT; // @note: the '@' char in the middle of regex is escaped
         return DBUserResult::Valid;
     }
 
+    
 };
 
 

@@ -17,9 +17,10 @@
             $error_message = "Указаный email не используется";
         } else if ($res == false) {
             $error_message = "Неверно указан пароль";
-        } /* else if ($res == true) {
+        } else {
             // Пароль совпал
-        } */
+            // $_SESSION['user_ID'] = $res;
+        }
     }
 ?>
 <body>
