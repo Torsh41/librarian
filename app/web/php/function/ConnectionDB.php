@@ -1,17 +1,11 @@
 <?php
 
-// TODO: Переделать переменную с паролем и пользователем
-// TODO: Минимальная длина пароля
-// TODO: Верификация EMail
-
-// declare(strict_types=1);
-
 enum DBUserResult: int {
-    case InvalidEmailRegex = 0;         // Email contains illegal characters
-    case InvalidEmailDatabase = 1;      // Email already exists in the database
-    case InvalidEmailNonExistant = 2;   // Email does not exist in real world
-    case InvalidUsernameRegex = 3;      // Username contains illegal characters
-    case InvalidUsernameDatabase = 4;   // Username already exists in the database
+    case InvalidEmailRegex = 0;
+    case InvalidEmailDatabase = 1;
+    case InvalidEmailNonExistant = 2;
+    case InvalidUsernameRegex = 3;
+    case InvalidUsernameDatabase = 4;
     case Valid = 5;
 }
 
@@ -32,22 +26,87 @@ class ConnectionDB extends PDO {
 
     private const USERNAME_REGEX = "/^[A-Za-z0-9_]+$/";
     private const EMAIL_REGEX = <<<EOT
-@^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")\@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$@i
-EOT; // @note: the '@' char in the middle of regex is escaped
-    
-
+@^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")\@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$@i
+EOT;
 
     public function __construct() {
         parent::__construct(
             "mysql:dbname=" . self::DB_NAME . ";host=" . self::DB_HOST,
             self::DB_USER,
-            self::DB_PASSWORD,
+            self::DB_PASSWORD
         );
     }
+    public function getAllCategories() {
+        $stmt = $this->query("SELECT * FROM tags");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    // @return null - No user with such email
-    //          false - Failure; Password does not match
-    //          int - Success; Password matches; Return user_ID
+    public function getAllTypes() {
+        $stmt = $this->query("SELECT * FROM resource_types");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getResources($query, $filters, $sort, $order) {
+        $sql = "SELECT 
+                    r.resources_ID, 
+                    r.title, 
+                    r.author, 
+                    r.publication_name, 
+                    r.publisher, 
+                    r.pages, 
+                    r.description, 
+                    r.tags, 
+                    r.rating, 
+                    r.file_path, 
+                    r.icon_path, 
+                    rt.type_name 
+                FROM " . self::DB_TABLE_RESOURCES . " r
+                JOIN " . self::DB_TABLE_RESOURCE_TYPES . " rt ON r.resource_type_ID = rt.type_ID";
+
+        $conditions = [];
+        $params = [];
+
+        if (!empty($query)) {
+            $conditions[] = "(r.title LIKE ? OR r.author LIKE ? OR r.description LIKE ?)";
+            $params[] = "%$query%";
+            $params[] = "%$query%";
+            $params[] = "%$query%";
+        }
+
+        if (!empty($filters) && is_array($filters['category'])) {
+            $filterConditions = [];
+            if (!empty($filters['category'])) {
+                $placeholders = implode(',', array_fill(0, count($filters['category']), '?'));
+                $filterConditions[] = "r.tags IN ($placeholders)";
+                $params = array_merge($params, $filters['category']);
+            }
+            if (!empty($filters['type'])) {
+                $filterConditions[] = "rt.type_name = ?";
+                $params[] = $filters['type'];
+            }
+            if ($filterConditions) {
+                $conditions[] = implode(" AND ", $filterConditions);
+            }
+        }
+
+
+
+        if ($conditions) {
+            $sql .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        if (!empty($sort)) {
+            $sql .= " ORDER BY $sort";
+            if (!empty($order)) {
+                $sql .= " $order";
+            }
+        }
+
+        $stmt = $this->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function user_verify_password(string $email, #[\SensitiveParameter] string $password): int|false|null {
         $stmt = $this->prepare("SELECT user_ID, password_hash FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
         $stmt->execute([$email]);
@@ -64,7 +123,6 @@ EOT; // @note: the '@' char in the middle of regex is escaped
         return $id;
     }
 
-    // @return DBUserResult enum values. They are self explanatory.
     public function user_insert(string $username, string $email, #[\SensitiveParameter] string $password): DBUserResult {
         $res = $this->user_validate_username($username);
         if ($res != DBUserResult::Valid) {
@@ -88,12 +146,10 @@ EOT; // @note: the '@' char in the middle of regex is escaped
     }
 
     private function user_validate_username(string $username): DBUserResult {
-        // Check illegal characters
         if (!preg_match(self::USERNAME_REGEX, $username)) {
             return DBUserResult::InvalidUsernameRegex;
         }
 
-        // Check unique username
         $stmt = $this->prepare("SELECT * FROM " . self::DB_TABLE_USERS . " WHERE username = ?;");
         $stmt->execute([$username]);
         if ($stmt->fetch()) {
@@ -104,47 +160,18 @@ EOT; // @note: the '@' char in the middle of regex is escaped
     }
 
     private function user_validate_email(string $email): DBUserResult {
-        // Check illegal characters
         if (!preg_match(self::EMAIL_REGEX, $email)) {
             return DBUserResult::InvalidEmailRegex;
         }
 
-        // Check unique email
         $stmt = $this->prepare("SELECT * FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
         $stmt->execute([$email]);
         if ($stmt->fetch()) {
             return DBUserResult::InvalidEmailDatabase;
         }
 
-        // TODO: verify email exists
-
         return DBUserResult::Valid;
     }
-
-    
 };
-
-
-function example() {
-    echo "Creating a connection\n";
-    $db = new ConnectionDB();
-
-    echo "Test1:\n";
-    if (true) {
-        // Insert new user
-        $res = $db->user_insert("n0iick", "s0ome@email.com", "and_a_password");
-        echo $res->name;
-    }
-
-    echo "Test2:\n";
-    if (false) {
-        // Verify user password
-        $res = $db->user_verify_password("s0ome@email.com", "and_a_password");
-        echo $res;
-    }
-
-}
-
-// example();
 
 ?>
