@@ -1,5 +1,5 @@
-window.onload = function() {
-    
+// window.onload = function() {
+window.addEventListener('load', function() {
     // function first_to_end(objParent){
     //     var lastChild = objParent.lastElementChild;
     //     objParent.insertBefore(lastChild, objParent.firstElementChild);
@@ -62,7 +62,7 @@ window.onload = function() {
     function goToSlide(index, num) {
         var dvizhemaia_chast = (document.querySelectorAll('.carusel_with_item'))[num];
         var parent = (document.querySelectorAll('.carusel_with_item'))[num];
-        if (index == -1) {
+        if (index == 1) {
             left_butts[num].style.pointerEvents = 'none';
             dvizhemaia_chast.style.transition = 'transform 0.5s';
             dvizhemaia_chast.style.transform = `translate(-255px,0px)`;
@@ -78,7 +78,7 @@ window.onload = function() {
 
             unfreez();
 
-        } else if (index == 1) {
+        } else if (index == -1) {
             right_butts[num].style.pointerEvents = 'none';
             dvizhemaia_chast.style.transition = 'none';
             dvizhemaia_chast.style.transform = `translate(-255px,0px)`;
@@ -131,4 +131,5 @@ window.onload = function() {
     function unfreez(){
         document.body.removeChild(overlay);
     }
-}
+// }
+});

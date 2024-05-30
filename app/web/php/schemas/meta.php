@@ -49,16 +49,25 @@ $meta = [
             '/css/pages/sign_in.css',
         ],
     ],
-    'php/template/pages/recurring/works_info'=>[
-        'title'=> $meta_name_book,
-        'description'=> $meta_name_book,
-        'scripts'=>[],
-        'style'=>[],
+    'php/template/pages/reccurring/work_info'=>[
+        'title'=> 'работа', //$meta_name_book,
+        'description'=> 'Инфо о работе', //$meta_name_book,
+        'scripts'=>[
+            '/scripts/carusel/little_slider.js',
+        ],
+        'style'=>[
+            '/css/pages/work_info.css',
+            '/css/carusel/little_slider.css',
+        ],
     ],
-    'php/template/pages/recurring/cabinet'=>[
+    'php/template/pages/reccurring/cabinet'=>[
         'title'=> 'Личный кабинет',
         'description'=> 'Личный кабинет',
-        'scripts'=>[],
-        'style'=>[],
+        'scripts'=>[
+            '/scripts/carusel/little_slider.js',
+        ],
+        'style'=>[
+            '/css/carusel/little_slider.css',
+        ],
     ],
 ];

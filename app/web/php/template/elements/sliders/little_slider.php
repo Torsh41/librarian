@@ -38,16 +38,16 @@
     <div class="little_slider">
         <div class="sub_sub_nazv"><div class="lit_sl_name_razdel"><?php echo $name_razdela_slider?></div></div>
         <div class="carusel_with_item">
-            <a href="" class="lit_car_item"><img src="" alt="1обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="2обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="3обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="4обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="5обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="6обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="7обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="8обложка"><div class="little_sl_name_work">Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="9обложка"><div class="little_sl_name_work">Название Название Название Название Название Название</div></a>
-            <a href="" class="lit_car_item"><img src="" alt="10обложка"><div class="little_sl_name_work">Название</div></a>        
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="1обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="2обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="3обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="4обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="5обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="6обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="7обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="8обложка"><div class="little_sl_name_work">Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="9обложка"><div class="little_sl_name_work">Название Название Название Название Название Название</div></a>
+            <a href="/php/template/pages/reccurring/work_info.php" class="lit_car_item"><img src="" alt="10обложка"><div class="little_sl_name_work">Название</div></a>        
         </div>
         <div class="buttons_left_right">
             <div class="slider_button_left"><img src="/assets/icons/left_arrow_100.png" alt="<-"></div>
