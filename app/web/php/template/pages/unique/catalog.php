@@ -7,8 +7,8 @@ $db = new ConnectionDB();
 // Получение данных из базы данных
 $query = $_GET['query'] ?? ''; // Поиск
 $filters = [
-    'category' => $_POST['category'] ?? [],
-    'type' => $_POST['type'] ?? ''
+    'category' => $_GET['category'] ?? [], // Changed from $_POST to $_GET
+    'type' => $_GET['type'] ?? '' // Changed from $_POST to $_GET
 ];
 $sort = $_GET['sort_to'] ?? ''; // Сортировка
 $order = $_GET['order'] ?? ''; // Порядок сортировки
@@ -40,9 +40,9 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
         </div>
         <div class="catalog_ref_works">
             <?php foreach ($resources as $resource) : ?>
-                <a href="/php/template/pages/reccurring/work_info.php" class="catalog_item">
-                    <img src="<?= $resource['icon_path'] ?>" alt="<?= $resource['title'] ?>">
-                    <div class="catalog_name_work"><?= $resource['title'] ?></div>
+                <a href="/php/template/pages/reccurring/work_info.php?id=<?= $resource['resources_ID'] ?>" class="catalog_item">
+                    <img src="<?= htmlspecialchars($resource['icon_path']) ?>" alt="<?= htmlspecialchars($resource['title']) ?>">
+                    <div class="catalog_name_work"><?= htmlspecialchars($resource['title']) ?></div>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -52,7 +52,7 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
         <!--Прикреплен к правой стороне экрана-->
         <div class="catalog_filters">
             <h2 class="name_raxdel_catalog name_raxdel_catalog2">Фильтры</h2>
-            <form action="" method="post" class="filter_categories">
+            <form action="" method="get" class="filter_categories"> <!-- Changed from post to get -->
                 <div class="name_filtr_categor">Тип</div>
                 <fieldset class="calatal_checkboxes calatal_checkboxes2">
                     <?php
@@ -61,8 +61,8 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
                     foreach ($types as $type) {
                         $checked = is_array($filters['type']) && in_array($type['type_name'], $filters['type']) ? 'checked' : '';
                         echo '<div>';
-                        echo '<input type="checkbox" id="' . $type['type_ID'] . '" name="type[]" value="' . $type['type_name'] . '" ' . $checked . '>';
-                        echo '<label for="' . $type['type_ID'] . '">' . $type['type_name'] . '</label>';
+                        echo '<input type="checkbox" id="' . htmlspecialchars($type['type_ID']) . '" name="type[]" value="' . htmlspecialchars($type['type_name']) . '" ' . $checked . '>';
+                        echo '<label for="' . htmlspecialchars($type['type_ID']) . '">' . htmlspecialchars($type['type_name']) . '</label>';
                         echo '</div>';
                     }
                     ?>
