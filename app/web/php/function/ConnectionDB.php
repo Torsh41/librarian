@@ -106,6 +106,29 @@ EOT;
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getRandomBooks($limit = 8) {
+        $sql = "SELECT * FROM " . self::DB_TABLE_RESOURCES . " ORDER BY RAND() LIMIT ?";
+        $stmt = $this->prepare($sql);
+        $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLatestBooks($limit = 8) {
+        $sql = "SELECT * FROM " . self::DB_TABLE_RESOURCES . " ORDER BY resources_ID DESC LIMIT ?";
+        $stmt = $this->prepare($sql);
+        $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRandomCategories($limit = 8) {
+        $sql = "SELECT * FROM " . self::DB_TABLE_TAGS . " ORDER BY RAND() LIMIT ?";
+        $stmt = $this->prepare($sql);
+        $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function user_verify_password(string $email, #[\SensitiveParameter] string $password): int|false|null {
         $stmt = $this->prepare("SELECT user_ID, password_hash FROM " . self::DB_TABLE_USERS . " WHERE email = ?;");
