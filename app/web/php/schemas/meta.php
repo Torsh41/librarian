@@ -27,7 +27,9 @@ $meta = [
         'title'=>'Каталог',
         'description'=>'Найди то что тебе нужно',
         'scripts'=>[],
-        'style'=>[],
+        'style'=>[
+            '/css/pages/catalog.css',
+        ],
     ],
     'php/template/pages/unique/add_work'=>[
         'title'=>'Добавление произведения',
