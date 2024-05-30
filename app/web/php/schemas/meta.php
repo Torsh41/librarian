@@ -39,7 +39,9 @@ $meta = [
         'title'=>'Авторизация',
         'description'=>'войдите в свою учетную запись',
         'scripts'=>[],
-        'style'=>[],
+        'style'=>[
+            '/css/pages/sign_up.css',    
+        ],
     ],
     'php/template/pages/unique/sign_in'=>[
         'title'=>'Регистрация',

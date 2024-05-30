@@ -1,0 +1,70 @@
+div.sign_up_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 200px;
+}
+
+h1{
+    font-size: 48px;
+}
+
+form.sign_up_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input::placeholder{
+    font-size: 20px;
+    color: #BCBCBC;
+    padding: 4px 0;
+}
+
+form.sign_up_form > input{
+    border: none;
+    border-bottom: 2px solid #BCBCBC;
+    margin-top: 46px;
+    width: 580px;
+
+    font-size: 20px;
+    color: #083476;
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
+
+.blue_gradient_button{
+    border-radius: 50px;
+    background: linear-gradient(92.36deg, rgba(24, 92, 195, 0.8) 0%, rgba(8, 52, 118, 0.8) 96.42%);
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 20px;
+}
+button.but{
+    background-color: transparent;
+    font-size: 24px;
+    padding: 2px 30px;
+    padding-bottom: 4px;
+    color: #FFFFFF;
+
+    transition: font-size 0.3s;
+}
+
+.blue_gradient_button:hover > button.but{
+    font-size: 26px;
+}
+
+.forget_password{
+    color: #BFD7FB;
+    font-size: 20px;
+    /* align-items: end; */
+    margin-left: auto;
+    margin-top: 20px;
+    text-decoration: underline;
+}
