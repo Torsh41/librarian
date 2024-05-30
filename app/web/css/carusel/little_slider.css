@@ -1,0 +1,100 @@
+.ls_just_flex{
+    display: flex;
+    margin-bottom: 80px;
+}
+.little_slider{
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+    margin: 0px 65px;
+    /* background-color: #f4f8ff; */
+
+    border-top: 1px solid #17062D;
+}
+/* .little_slider > *{
+    margin: 0px 25px;
+} */
+
+div.carusel_with_item{
+    width: 300%;
+
+    display: flex;
+    flex-direction: row;
+
+    transition: transform 0.5s;
+
+    margin-bottom: 10px;
+}
+
+.lit_car_item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-right: 75px;
+}
+
+.lit_car_item > img{
+    height: 230px;
+    width: 180px; 
+    background-color: #D9D9D9;
+
+    border-radius: 5px;
+}
+
+div.buttons_left_right{
+    position: absolute;
+    width: 100%;
+    top: 164px;
+    left: -25px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.buttons_left_right > div > img{
+    height: 30px;
+    width: 30px;
+
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.little_slider:hover > div.buttons_left_right > div > img{
+    opacity: 0.4;
+}
+
+.slider_button_left{
+    margin-left: 50px;
+}
+
+.slider_button_right{
+    margin-right: 0px;
+}
+
+/* .carusel_with_item {
+    transform: translateX(-200%);
+} */
+
+div.little_sl_name_work{
+    color: #17062D;
+    width: 180px;
+    height: 40px;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.lit_sl_name_razdel{
+    color: #17062D;
+    font-size: 40px;
+}
+
+.little_slider>.sub_sub_nazv{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding: 12px 0;
+}

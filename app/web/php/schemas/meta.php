@@ -15,8 +15,13 @@ $meta = [
     'index'=>[
         'title'=>'Сайт Библиотека',
         'description'=>'Тут можно удобно прочитать книги, учебники, конспекты и т.д.',
-        'scripts'=>[],
-        'style'=>[], 
+        'scripts'=>[
+            '/scripts/carusel/little_slider.js',
+        ],
+        'style'=>[
+            '/css/carusel/little_slider.css',
+            '/css/pages/index.css',
+        ], 
     ],
     'php/template/pages/unique/catalog'=>[
         'title'=>'Каталог',

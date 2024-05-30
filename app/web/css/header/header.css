@@ -14,6 +14,8 @@ header, div.under_header{
     flex-direction: row;
     align-items: stretch; /*Вертикально дочерние элементы занимают все пространство*/
     justify-content: space-between; /*Все дочернии элементы на одинаковом расстоянии друг от друга*/
+
+    z-index: 100;
 }
 
 header *{
