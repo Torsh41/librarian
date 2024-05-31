@@ -1,5 +1,5 @@
-<!-- Подключаем заголовок -->
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
+<!-- Подключаем заголовок -->
 
 <!-- Взаимодействие с формой -->
 <?php
@@ -19,7 +19,10 @@
             $error_message = "Неверно указан пароль";
         } else {
             // Пароль совпал
-            // $_SESSION['user_ID'] = $res;
+            $_SESSION['user_ID'] = $res;
+            $user = $db->user_get_by_id($res);
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['avatar_path'] = $user['avatar_path'];
         }
     }
 ?>

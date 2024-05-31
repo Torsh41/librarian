@@ -1,101 +1,49 @@
--- MariaDB dump 10.19-11.3.2-MariaDB, for debian-linux-gnu (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: dev_database
--- ------------------------------------------------------
--- Server version	11.3.2-MariaDB-1:11.3.2+maria~ubu2204
+-- Хост: db:3306
+-- Время создания: Май 30 2024 г., 18:46
+-- Версия сервера: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
+-- Версия PHP: 8.2.19
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `requests`
+-- База данных: `dev_database`
 --
 
-DROP TABLE IF EXISTS `requests`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `requests`
+--
+
 CREATE TABLE `requests` (
-  `request_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `request_ID` int(11) NOT NULL,
   `user_ID` int(11) DEFAULT NULL,
   `resource_ID` int(11) DEFAULT NULL,
   `status_ID` int(11) DEFAULT NULL,
   `request_aim` varchar(255) DEFAULT NULL,
-  `request_date` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`request_ID`),
-  KEY `user_ID` (`user_ID`),
-  KEY `resource_ID` (`resource_ID`),
-  KEY `status_ID` (`status_ID`),
-  CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`),
-  CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`resource_ID`) REFERENCES `resources` (`resources_ID`),
-  CONSTRAINT `requests_ibfk_3` FOREIGN KEY (`status_ID`) REFERENCES `status` (`status_ID`)
+  `request_date` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `requests`
+-- Структура таблицы `resources`
 --
 
-LOCK TABLES `requests` WRITE;
-/*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-/*!40000 ALTER TABLE `requests` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `resource_types`
---
-
-DROP TABLE IF EXISTS `resource_types`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `resource_types` (
-  `type_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`type_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `resource_types`
---
-
-LOCK TABLES `resource_types` WRITE;
-/*!40000 ALTER TABLE `resource_types` DISABLE KEYS */;
-INSERT INTO `resource_types` VALUES
-(1,'Статья'),
-(2,'Учебник'),
-(3,'Конспект'),
-(4,'Реферат'),
-(5,'Диссертация'),
-(6,'Лекция'),
-(7,'Книга'),
-(8,'Отчет'),
-(9,'Исследование'),
-(10,'Презентация'),
-(11,'Видео'),
-(12,'Аудио'),
-(13,'Электронная книга'),
-(14,'Документ'),
-(15,'Справочник');
-/*!40000 ALTER TABLE `resource_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `resources`
---
-
-DROP TABLE IF EXISTS `resources`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `resources` (
-  `resources_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `resources_ID` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `author` varchar(100) NOT NULL,
   `publication_name` varchar(100) DEFAULT NULL,
@@ -106,172 +54,318 @@ CREATE TABLE `resources` (
   `rating` float DEFAULT NULL,
   `file_path` varchar(255) DEFAULT NULL,
   `resource_type_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`resources_ID`),
-  KEY `publisher` (`publisher`),
-  KEY `tags` (`tags`),
-  KEY `fk_resource_type` (`resource_type_ID`),
-  CONSTRAINT `fk_resource_type` FOREIGN KEY (`resource_type_ID`) REFERENCES `resource_types` (`type_ID`),
-  CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`publisher`) REFERENCES `users` (`user_ID`),
-  CONSTRAINT `resources_ibfk_2` FOREIGN KEY (`tags`) REFERENCES `tags` (`tags_ID`)
+  `icon_path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `resources`
+-- Дамп данных таблицы `resources`
 --
 
-LOCK TABLES `resources` WRITE;
-/*!40000 ALTER TABLE `resources` DISABLE KEYS */;
-/*!40000 ALTER TABLE `resources` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `resources` (`resources_ID`, `title`, `author`, `publication_name`, `publisher`, `pages`, `description`, `tags`, `rating`, `file_path`, `resource_type_ID`, `icon_path`) VALUES
+(2, 'Английский для химиков-технологов', 'Т.И. Кузнецова Е.В. Воловикова И.А. Кузнецов', '', 
+    3, 262, 'Учебник по английскому для химиков-технологов.', 2, 0, '/files/resources/english_for_chemical_engineers.pdf', 2, '/files/images/1.jpg'),
+(3, 'Задачи по общей химии', 'А.Ф. Воробьева', '', 
+    3, 248, 'Задачник по общей химии.', 2, 0, '/files/resources/general_chemistry_problems.pdf', 3, '/files/images/2.jpg'),
+(4, 'Задачи и упражнения по органической химии', 'В.М. Потапов С.Н. Татаринчик А.В. Аверина', '', 
+    3, 184, 'Задачник по органической химии.', 2, 0, '/files/resources/organic_chemistry_problems_and_exercises.pdf', 3, '/files/images/3.jpg'),
+(5, 'Общие методы работы в лаборатории органической химии', 'РХТУ им. Д.И. Менделеева', '', 
+    2, 150, 'Учебник по общим методам работы в лаборатории органической химии.', 2, 0, '/files/resources/general_methods_in_organic_chemistry_lab.pdf', 2, '/files/images/4.PNG'),
+(6, 'Органическая химия', 'РХТУ им. Д.И. Менделеева', '', 
+    2, 150, 'Учебник по органической химии.', 2, 0, '/files/resources/organic_chemistry.pdf', 2, '/files/images/5.PNG'),
+(7, 'Аналитическая химия. Химические методы анализа', 'С.Л. Рогатинская', '', 
+    2, 150, 'Задачник по аналитической химии.', 2, 0, '/files/resources/analytical_chemistry_chemical_methods.pdf', 3, '/files/images/6.PNG'),
+(8, 'Дифференциальное и интегральное исчисление функции многих переменных', 'РХТУ им. Д.И. Менделеева', '', 
+    2, 150, 'Учебник по дифференциальному и интегральному исчислению функции многих переменных.', 1, 0, '/files/resources/multivariable_calculus.pdf', 3, '/files/images/7.PNG'),
+(9, 'Основы языка программирования Си', 'РХТУ им. Д.И. Менделеева', '', 
+    2, 150, 'Учебник по основам языка программирования Си.', 6, 0, '/files/resources/fundamentals_of_c_programming.pdf', 2, '/files/images/8.PNG'),
+(10, 'Сборник расчетных работ по высшей математике ТОМ 2', 'РХТУ им. Д.И. Менделеева', '', 
+    1, 150, 'Обыкновенные дифференциальный уравнения и системы. Ряды. Уравнения в частных производных.', 1, 0, '/files/resources/higher_math_calculation_works_volume_2.pdf', 3, '/files/images/9.PNG'),
+(11, 'C++. Элементарное программирование', 'Ю.В. Сбоева', '', 
+    1, 150, 'Учебник по элементарному программированию на C++.', 6, 0, '/files/resources/cpp_elementary_programming.pdf', 2, '/files/images/10.PNG'),
+(12, 'Сборник задач по высшей математике', 'К.Н. Лунгу', '', 
+    1, 150, 'Линейная алгебра. Аналитическая геометрия. Основы математического анализа. Комплексные числа.', 1, 0, '/files/resources/advanced_math_problem_set.pdf', 3, '/files/images/11.jpg'),
+-- (13, 'Введение в нанотехнологию', 'Н. Кобаяси', '', 
+--     1, 150, 'Учебник по введению в нанотехнологии.', 17, 0, '/files/resources/introduction_to_nanotechnology.pdf', 2, '/files/images/12.jpg'),
+(14, 'Титриметрические методы анализа', 'Н.М. Дубова', '', 
+    1, 150, 'Учебник по титриметрическим методам анализа.', 2, 0, '/files/resources/titrimetric_analysis_methods.pdf', 2, '/files/images/13.PNG'),
+(15, 'Сборник задач по теории вероятностей', 'Х.М. Андрухаев', '', 
+    1, 150, 'Сборник задач по теории вероятностей.', 30, 0, '/files/resources/probability_theory_problem_set.pdf', 3, '/files/images/14.PNG'),
+(16, 'Задачи и упражнения по математическому анализу', 'И.А. Виноградова С.Н. Олехник В.А. Садовничий', '', 
+    1, 150, 'Задачник по математическому анализу.', 1, 0, '/files/resources/math_analysis_problems_and_exercises.pdf', 3, '/files/images/15.PNG');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Структура таблицы `resource_types`
 --
 
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resource_types` (
+  `type_ID` int(11) NOT NULL,
+  `type_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `resource_types`
+--
+
+INSERT INTO `resource_types` (`type_ID`, `type_name`) VALUES
+(1, 'Статья'),
+(2, 'Учебник'),
+(3, 'Конспект'),
+(4, 'Реферат'),
+(5, 'Диссертация'),
+(6, 'Лекция'),
+(7, 'Книга'),
+(8, 'Отчет'),
+(9, 'Исследование'),
+(10, 'Презентация'),
+(11, 'Видео'),
+(12, 'Аудио'),
+(13, 'Электронная книга'),
+(14, 'Документ'),
+(15, 'Справочник');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `roles`
+--
+
 CREATE TABLE `roles` (
-  `roles_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) NOT NULL UNIQUE,
-  PRIMARY KEY (`roles_ID`)
+  `roles_ID` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `roles`
+-- Дамп данных таблицы `roles`
 --
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `roles` (`roles_ID`, `role_name`) VALUES
+(1, 'Student'),
+(2, 'Teacher'),
+(3, 'Admin');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `status`
+-- Структура таблицы `status`
 --
 
-DROP TABLE IF EXISTS `status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `status` (
-  `status_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `status` varchar(50) NOT NULL UNIQUE,
-  PRIMARY KEY (`status_ID`)
+  `status_ID` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `status`
+-- Структура таблицы `tags`
 --
 
-LOCK TABLES `status` WRITE;
-/*!40000 ALTER TABLE `status` DISABLE KEYS */;
-/*!40000 ALTER TABLE `status` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tags`
---
-
-DROP TABLE IF EXISTS `tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tags` (
-  `tags_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `tag_name` varchar(50) NOT NULL UNIQUE,
-  PRIMARY KEY (`tags_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `tags_ID` int(11) NOT NULL,
+  `tag_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tags`
+-- Дамп данных таблицы `tags`
 --
 
-LOCK TABLES `tags` WRITE;
-/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-INSERT INTO `tags` VALUES
-(1,'Математика'),
-(2,'Химия'),
-(3,'Физика'),
-(4,'История'),
-(5,'Биология'),
-(6,'Информатика'),
-(7,'Литература'),
-(8,'География'),
-(9,'Искусство'),
-(10,'Музыка'),
-(11,'Философия'),
-(12,'Экономика'),
-(13,'Социология'),
-(14,'Политология'),
-(15,'Право'),
-(16,'Психология'),
-(17,'Технологии'),
-(18,'Инженерия'),
-(19,'Экология'),
-(20,'Медицина'),
-(21,'Астрономия'),
-(22,'Лингвистика'),
-(23,'Антропология'),
-(24,'Археология'),
-(25,'Этика'),
-(26,'Культурология'),
-(27,'Спорт'),
-(28,'Образование'),
-(29,'Логика'),
-(30,'Статистика'),
-(31,'Маркетинг'),
-(32,'Менеджмент'),
-(33,'Финансы'),
-(34,'Бухгалтерия'),
-(35,'Туризм'),
-(36,'Религия'),
-(37,'Геология'),
-(38,'Агрономия');
-/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tags` (`tags_ID`, `tag_name`) VALUES
+(1, 'Математика'),
+(2, 'Химия'),
+(3, 'Физика'),
+(4, 'История'),
+(5, 'Биология'),
+(6, 'Информатика'),
+(7, 'Литература'),
+(8, 'География'),
+(9, 'Искусство'),
+(10, 'Музыка'),
+(11, 'Философия'),
+(12, 'Экономика'),
+(13, 'Социология'),
+(14, 'Политология'),
+(15, 'Право'),
+(16, 'Психология'),
+(17, 'Технологии'),
+(18, 'Инженерия'),
+(19, 'Экология'),
+(20, 'Медицина'),
+(21, 'Астрономия'),
+(22, 'Лингвистика'),
+(23, 'Антропология'),
+(24, 'Археология'),
+(25, 'Этика'),
+(26, 'Культурология'),
+(27, 'Спорт'),
+(28, 'Образование'),
+(29, 'Логика'),
+(30, 'Статистика'),
+(31, 'Маркетинг'),
+(32, 'Менеджмент'),
+(33, 'Финансы'),
+(34, 'Бухгалтерия'),
+(35, 'Туризм'),
+(36, 'Религия'),
+(37, 'Геология'),
+(38, 'Агрономия');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура таблицы `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `user_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL UNIQUE,
+  `user_ID` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL UNIQUE,
-  `role_id` int(11) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `roles_ID` int(11) DEFAULT NULL,
   `avatar_path` varchar(255) DEFAULT NULL,
   `subscriptions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`subscriptions`)),
   `added_books` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`added_books`)),
-  `favorite_books` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`favorite_books`)),
-  PRIMARY KEY (`user_ID`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`roles_ID`)
+  `favorite_books` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`favorite_books`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Дамп данных таблицы `users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- All Passwords are 'example' hashed with password_hash(..., PASSWORD_BCRYPT)
+INSERT INTO `users` (`user_ID`, `username`, `password_hash`, `email`, `roles_ID`, `avatar_path`, `subscriptions`, `added_books`, `favorite_books`) VALUES
+(1, 'user1', '$2y$10$itUX3knbQX2Hr5tl78uvAO6D6qiINVmhLwi47BeH0GjOKfQ2cU5my', 'user1@example.com', 1, '/files/images/avatar_1.png', '[]', '[]', '[]'),
+(2, 'user2', '$2y$10$LhWRnKVHO9x29eNDCYvHUe0.W6.RwLR823mesdAS4dIsMmKV0wQo.', 'user2@example.com', 2, '/files/images/avatar_2.png', '[]', '[]', '[]'),
+(3, 'user3', '$2y$10$/YYPGrYkwRH0/Ug41mZhY.Z48ePz2N1v96HfH/4E4idxvf8/A1lli', 'user3@example.com', 3, '/files/images/avatar_3.jpg', '[]', '[]', '[]');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `requests`
+--
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`request_ID`),
+  ADD KEY `user_ID` (`user_ID`),
+  ADD KEY `resource_ID` (`resource_ID`),
+  ADD KEY `status_ID` (`status_ID`);
+
+--
+-- Индексы таблицы `resources`
+--
+ALTER TABLE `resources`
+  ADD PRIMARY KEY (`resources_ID`),
+  ADD KEY `publisher` (`publisher`),
+  ADD KEY `tags` (`tags`),
+  ADD KEY `fk_resource_type` (`resource_type_ID`);
+
+--
+-- Индексы таблицы `resource_types`
+--
+ALTER TABLE `resource_types`
+  ADD PRIMARY KEY (`type_ID`);
+
+--
+-- Индексы таблицы `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`roles_ID`);
+
+--
+-- Индексы таблицы `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`status_ID`);
+
+--
+-- Индексы таблицы `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`tags_ID`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_ID`),
+  ADD KEY `role_id` (`roles_ID`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `requests`
+--
+ALTER TABLE `requests`
+  MODIFY `request_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `resources`
+--
+ALTER TABLE `resources`
+  MODIFY `resources_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `resource_types`
+--
+ALTER TABLE `resource_types`
+  MODIFY `type_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT для таблицы `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `roles_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `status`
+--
+ALTER TABLE `status`
+  MODIFY `status_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `tags_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `requests`
+--
+ALTER TABLE `requests`
+  ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`),
+  ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`resource_ID`) REFERENCES `resources` (`resources_ID`),
+  ADD CONSTRAINT `requests_ibfk_3` FOREIGN KEY (`status_ID`) REFERENCES `status` (`status_ID`);
+
+--
+-- Ограничения внешнего ключа таблицы `resources`
+--
+ALTER TABLE `resources`
+  ADD CONSTRAINT `fk_resource_type` FOREIGN KEY (`resource_type_ID`) REFERENCES `resource_types` (`type_ID`),
+  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`publisher`) REFERENCES `users` (`user_ID`),
+  ADD CONSTRAINT `resources_ibfk_2` FOREIGN KEY (`tags`) REFERENCES `tags` (`tags_ID`);
+
+--
+-- Ограничения внешнего ключа таблицы `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_roles` FOREIGN KEY (`roles_ID`) REFERENCES `roles` (`roles_ID`),
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`roles_ID`) REFERENCES `roles` (`roles_ID`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-05-26 13:20:19

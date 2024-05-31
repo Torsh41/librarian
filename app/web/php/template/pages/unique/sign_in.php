@@ -1,5 +1,5 @@
-<!-- Подключаем заголовок -->
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
+<!-- Подключаем заголовок -->
 
 <!-- Взаимодействие с формой -->
 <?php
