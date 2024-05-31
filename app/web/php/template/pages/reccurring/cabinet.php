@@ -5,13 +5,20 @@
     <!-- Подключаем header -->
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
     
+    <?php if (isset($_SESSION['user_ID'])) { ?>
 
     <main class="main_cabinet">
 
         <div class="upper_info_and_exit_cabinet">
-            <div class="avatar_profil_cabinet user_icon_cover"><img src="/assets/icons/person-64.png" alt="" class="class="avatar_profil_cabinet""></div>
+            <div class="avatar_profil_cabinet user_icon_cover">
+            <?php if ($_SESSION['avatar_path'] != '') { ?>
+                <img src="<?php echo $_SESSION['avatar_path']; ?>" alt="P" class="header_icon icon_person">
+            <?php } else { ?>
+                <img src="/assets/icons/person-64.png" alt="" class="class="avatar_profil_cabinet"">
+            <?php } ?>
+            </div>
 
-            <div class="name_user_cabinet_first">Имя пользователя из бд</div>
+            <div class="name_user_cabinet_first"><?php echo $_SESSION['username']; ?></div>
             <div class="exit_cabinet">Выход</div>
         </div>
 
@@ -278,6 +285,9 @@
         </div>
 
     </main>
+    <?php } else /* if (!isset($_SESSION['user_ID'])) */ { ?>
+        <p>Для просмотра данной страницы войдите в свой пользовательский аккаунт</p>
+    <?php } ?>
 
     <!-- Подключаем footer -->
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_footer.php'); ?>

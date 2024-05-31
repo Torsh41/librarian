@@ -172,6 +172,19 @@ EOT; // @note: the '@' char in the middle of regex is escaped
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function user_get_by_id(int $user_id): array {
+        $sql = "SELECT username, roles_ID, avatar_path, subscriptions," .
+            "added_books, favorite_books FROM " . self::DB_TABLE_USERS .  
+            " WHERE user_ID = ?;";
+        echo $sql . "\n";
+
+        $stmt = $this->prepare($sql);
+        $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // @return null - No user with such email
     //          false - Failure; Password does not match
     //          int - Success; Password matches; Return user_ID
