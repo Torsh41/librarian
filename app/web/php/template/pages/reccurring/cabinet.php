@@ -19,7 +19,10 @@
             </div>
 
             <div class="name_user_cabinet_first"><?php echo $_SESSION['username']; ?></div>
-            <div class="exit_cabinet">Выход</div>
+            
+            <a href="/php/template/elements/covers/session_end.php">
+                <div class="exit_cabinet">Выход</div>
+            </a>
         </div>
 
         <div class="vkladki_i_soderzhimoe">
