@@ -36,7 +36,7 @@
             <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
             <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
             <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
-        </a>
+        </div>
     </div>
     
     <div>
