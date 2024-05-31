@@ -25,15 +25,20 @@
         require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/sliders/little_slider.php');
     ?>
     </div>
-    <div>
-        <hr>
-        <p>Популярные категории</p>
+
+    <div class="categoriii_index">
+        <div class="name_raz_index">Популярные категории</div>
         <!-- это тоже делается через бд, и через foreach, но ниже пока пусть будут приведены 2 элемента-->
-    <?php
-        require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/covers/one_category.php');
-        require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/covers/one_category.php');
-    ?>
+        <div class="every_cat_index">
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+            <a href="/php/template/pages/unique/catalog.php" class="img_cat_index"><img src="" alt=""><div>Название</div></a>
+        </a>
     </div>
+    
     <div>
         <!-- <hr> -->
         <!-- <p>Последнии добавления</p> -->
