@@ -22,7 +22,7 @@ class FileStorage {
     // @return: resource path | error
     public static function resource_add(string $path, string $ext_regex, string $name, string $tmp_name, int $size): string|FSResourceResult {
         // Max size constraint
-        if ($size > RESOURCE_MAX_SIZE) {
+        if ($size > self::RESOURCE_MAX_SIZE) {
             return FSResourceResult::InvalidSize;
         }
 
@@ -33,7 +33,7 @@ class FileStorage {
 
         // Get unique filename
         do {
-            $target = $path . $this->generate_unique_name();
+            $target = $path . self::generate_unique_name();
         } while (file_exists($target));
         
         // Save the file
@@ -52,7 +52,7 @@ class FileStorage {
     public static function resource_search() {
     }
 
-    private function generate_unique_name(): string {
+    private static function generate_unique_name(): string {
         return uniqid(self::RESOURCE_PREFIX);
     }
 }

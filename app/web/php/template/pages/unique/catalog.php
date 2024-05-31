@@ -14,7 +14,7 @@ $db = new ConnectionDB();
 // Получение данных из базы данных
 $query = $_GET['query'] ?? ''; // Поиск
 $filters = [
-    'category' => $_GET['category'] ?? [], // Changed from $_POST to $_GET
+    'category' => $_GET['category'] ?? '', // Changed to a single value
     'type' => $_GET['type'] ?? '' // Changed from $_POST to $_GET
 ];
 $sort = $_GET['sort_to'] ?? ''; // Сортировка
@@ -23,7 +23,6 @@ $order = $_GET['order'] ?? ''; // Порядок сортировки
 $resources = $db->getResources($query, $filters, $sort, $order); // Получение ресурсов
 
 ?>
-
 
 <!-- Основное содержание каталог -->
 <div class="wight_block"></div>
@@ -60,13 +59,16 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
                     // Получение всех типов из базы данных и вывод их в виде чекбоксов
                     $types = $db->getAllTypes();
                     foreach ($types as $type) {
-                        $checked = is_array($filters['type']) && in_array($type['type_name'], $filters['type']) ? 'checked' : '';
+                        $checked = $filters['type'] == $type['type_name'] ? 'checked' : '';
                         echo '<div>';
-                        echo '<input type="checkbox" id="' . htmlspecialchars($type['type_ID']) . '" name="type[]" value="' . htmlspecialchars($type['type_name']) . '" ' . $checked . '>';
+                        echo '<input type="radio" id="' . htmlspecialchars($type['type_ID']) . '" name="type" value="' . htmlspecialchars($type['type_name']) . '" ' . $checked . '>';
                         echo '<label for="' . htmlspecialchars($type['type_ID']) . '">' . htmlspecialchars($type['type_name']) . '</label>';
                         echo '</div>';
                     }
                     ?>
+                    <div>
+                        <input type="radio" id="type_none" name="type" value="" <?= $filters['type'] == '' ? 'checked' : '' ?>>
+                        <label for="type_none">Без типа</label>
                 </fieldset>
                 <button type="submit" class="catalog_butt_filter">Показать</button>
             </form>
