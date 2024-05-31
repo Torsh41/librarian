@@ -37,7 +37,9 @@ $meta = [
         'title'=>'Добавление произведения',
         'description'=>'Добавте на сайт новую работу',
         'scripts'=>[],
-        'style'=>[], 
+        'style'=>[
+            '/css/pages/add_work.css',
+        ],
     ],
     'php/template/pages/unique/sign_up'=>[
         'title'=>'Авторизация',
