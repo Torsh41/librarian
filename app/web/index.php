@@ -10,7 +10,12 @@
     <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
 
     <!-- Основное содержание главной страницы -->
-    <div><?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/sliders/big_slider.php'); ?></div>
+    <div>
+    <?php
+        $resources = $db->getRandomBooks(11);
+        require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/sliders/big_slider.php');
+    ?>
+    </div>
     <div>
         <!-- <hr> -->
         <!-- <p>Вам может быть интересно</p> -->
