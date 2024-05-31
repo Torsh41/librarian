@@ -16,8 +16,8 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $publisher_id = $_SESSION['user_ID'];
 
-            $preview = $_FILE['preview'];
-            $resource = $_FILE['resource'];
+            $preview = $_FILES['preview'];
+            $resource = $_FILES['resource'];
 
             // TODO: return to some other page after success
             // TODO: check preview size via getimagesize(...)
@@ -84,8 +84,8 @@
                 $publisher_id,
                 $type,
                 $category,
-                $preview_file_path,
-                $resource_file_path,
+                $resource_file_name,
+                $preview_file_name,
                 $author,
                 $title,
                 $publication_name,

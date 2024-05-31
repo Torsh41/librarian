@@ -14,8 +14,8 @@ $db = new ConnectionDB();
 // Получение данных из базы данных
 $query = $_GET['query'] ?? ''; // Поиск
 $filters = [
-    'category' => $_GET['category'] ?? '', // Changed to a single value
-    'type' => $_GET['type'] ?? '' // Changed from $_POST to $_GET
+    'category' => $_GET['category'] ?? '', // Изменено на единственное значение
+    'type' => $_GET['type'] ?? '' // Изменено на GET
 ];
 $sort = $_GET['sort_to'] ?? ''; // Сортировка
 $order = $_GET['order'] ?? ''; // Порядок сортировки
@@ -49,10 +49,10 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
     </div>
     <div class="right_side_catalog">
         <div class="vertikal_line"></div> <!-- Вертикальная линия -->
-        <!--Прикреплен к правой стороне экрана-->
+        <!-- Прикреплен к правой стороне экрана -->
         <div class="catalog_filters">
             <h2 class="name_raxdel_catalog name_raxdel_catalog2">Фильтры</h2>
-            <form action="" method="get" class="filter_categories"> <!-- Changed from post to get -->
+            <form action="" method="get" class="filter_categories"> <!-- Изменено на GET -->
                 <div class="name_filtr_categor">Тип</div>
                 <fieldset class="calatal_checkboxes calatal_checkboxes2">
                     <?php
@@ -74,7 +74,6 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
             </form>
         </div>
     </div>
-
 </main>
 
 <!-- Подключаем footer -->

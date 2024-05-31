@@ -1,10 +1,8 @@
 <?php
-
 require_once($_SERVER['DOCUMENT_ROOT'] . '/php/function/ConnectionDB.php');
 ?>
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
 
-<!-- session_start(); // Начало сессии для проверки залогиненности пользователя -->
 <?php
 $db = new ConnectionDB();
 
@@ -25,8 +23,8 @@ if ($bookId) {
 $relatedBooks = $db->getRandomBooks();
 
 // Проверка, залогинен ли пользователь
-$isLoggedIn = isset($_SESSION['user_id']);
-$userId = $isLoggedIn ? $_SESSION['user_id'] : null;
+$isLoggedIn = isset($_SESSION['user_ID']);
+$userId = $isLoggedIn ? $_SESSION['user_ID'] : null;
 
 // Обработка отправки формы оценки
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rating'])) {
@@ -42,10 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_favorite'])) {
         $db->addBookToFavorites($userId, $bookId);
     }
 }
-
 ?>
-
-<!-- Подключаем заголовок -->
 
 <body>
 <!-- Подключаем header -->
@@ -57,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_favorite'])) {
         <div class="img_and_action_work_info">
             <img src="<?= htmlspecialchars($bookInfo['icon_path'] ?? '') ?>" alt="<?= htmlspecialchars($bookInfo['title'] ?? '') ?>" class="oblozhka_work_info">
             <div class="action_with_boo_work_info">
-                <a href="<?= htmlspecialchars($bookInfo['file_path'] ?? '') ?>" class="cover_read_online_work_info">
+                <a href="<?= htmlspecialchars($bookInfo['file_path'] ?? '') ?>" target="_blank" class="cover_read_online_work_info">
                     <div class="read_online_work_info">Начать читать</div>
                 </a>
                 <a href="<?= htmlspecialchars($bookInfo['file_path'] ?? '') ?>" download>
@@ -120,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_favorite'])) {
         </div>
     </div>
     <div>
-        <?php $name_razdela_slider = "Вам может быть интересно"; 
+        <?php $name_razdela_slider = "Вам может быть интересно";
         $resources = $db->getRandomBooks(11);?>
         <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/sliders/little_slider.php'); ?>
     </div>

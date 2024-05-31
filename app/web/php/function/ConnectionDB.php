@@ -57,20 +57,20 @@ EOT; // @note: the '@' char in the middle of regex is escaped
 
     public function getResources($query, $filters, $sort, $order) {
         $sql = "SELECT
-                    r.resources_ID,
-                    r.title,
-                    r.author,
-                    r.publication_name,
-                    r.publisher,
-                    r.pages,
-                    r.description,
-                    r.tags,
-                    r.rating,
-                    r.file_path,
-                    r.icon_path,
-                    rt.type_name
-                FROM " . self::DB_TABLE_RESOURCES . " r
-                JOIN " . self::DB_TABLE_RESOURCE_TYPES . " rt ON r.resource_type_ID = rt.type_ID";
+                r.resources_ID,
+                r.title,
+                r.author,
+                r.publication_name,
+                r.publisher,
+                r.pages,
+                r.description,
+                r.tags,
+                r.rating,
+                r.file_path,
+                r.icon_path,
+                rt.type_name
+            FROM " . self::DB_TABLE_RESOURCES . " r
+            JOIN " . self::DB_TABLE_RESOURCE_TYPES . " rt ON r.resource_type_ID = rt.type_ID";
 
         $conditions = [];
         $params = [];
@@ -82,23 +82,15 @@ EOT; // @note: the '@' char in the middle of regex is escaped
             $params[] = "%$query%";
         }
 
-        if (!empty($filters) && is_array($filters['category'])) {
-            $filterConditions = [];
-            if (!empty($filters['category'])) {
-                $placeholders = implode(',', array_fill(0, count($filters['category']), '?'));
-                $filterConditions[] = "r.tags IN ($placeholders)";
-                $params = array_merge($params, $filters['category']);
-            }
-            if (!empty($filters['type'])) {
-                $filterConditions[] = "rt.type_name = ?";
-                $params[] = $filters['type'];
-            }
-            if ($filterConditions) {
-                $conditions[] = implode(" AND ", $filterConditions);
-            }
+        if (!empty($filters['category'])) {
+            $conditions[] = "r.category_ID = ?";
+            $params[] = $filters['category'];
         }
 
-
+        if (!empty($filters['type'])) {
+            $conditions[] = "rt.type_name = ?";
+            $params[] = $filters['type'];
+        }
 
         if ($conditions) {
             $sql .= " WHERE " . implode(" AND ", $conditions);
@@ -116,6 +108,7 @@ EOT; // @note: the '@' char in the middle of regex is escaped
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getRandomBooks($limit = 8) {
         $sql = "SELECT * FROM " . self::DB_TABLE_RESOURCES . " ORDER BY RAND() LIMIT ?";
@@ -153,9 +146,11 @@ EOT; // @note: the '@' char in the middle of regex is escaped
     }
 
     public function addBookToFavorites($userId, $bookId) {
-        $stmt = $this->prepare("INSERT INTO favorites (user_ID, resources_ID) VALUES (?, ?)");
-        $stmt->execute([$userId, $bookId]);
+        // Обновляем столбец favorite_book в таблице пользователей
+        $stmt = $this->prepare("UPDATE users SET favorite_books = ? WHERE id = ?");
+        $stmt->execute([$bookId, $userId]);
     }
+
     public function getBookId($bookId) {
         $sql = "SELECT
                     r.resources_ID,
