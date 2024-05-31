@@ -9,8 +9,8 @@ services:
     volumes:
       - ./app/:/app/
       - ./logs/:/var/www/logs/
-      - ./files/images/:/files/images/
-      - ./files/resources/:/files/resources/
+      - ./files/images/:/app/web/files/images/
+      - ./files/resources/:/app/web/files/resources/
     ports:
       - "8000:80"
   # TODO: Docker secrets
