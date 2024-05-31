@@ -1,3 +1,10 @@
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
+<!-- Подключаем заголовок -->
+
+<body>
+<!-- Подключаем header -->
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
+
 <?php
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/php/function/ConnectionDB.php');
@@ -17,12 +24,6 @@ $resources = $db->getResources($query, $filters, $sort, $order); // Получе
 
 ?>
 
-<!-- Подключаем заголовок -->
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
-
-<body>
-<!-- Подключаем header -->
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
 
 <!-- Основное содержание каталог -->
 <div class="wight_block"></div>

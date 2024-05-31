@@ -1,6 +1,8 @@
 <?php
-// если будут сессии
-// session_start();
+// @note session_start() обязана быть в самом верху документа.
+// Даже выеше html комментариев...
+session_start();
+
 
 //Получаем массив с данными для заголовка сайта
 require_once($_SERVER['DOCUMENT_ROOT'].'/php/schemas/meta.php'); 
@@ -101,3 +103,4 @@ if (strpos($url, 'php/template/pages/recurring/work_info')) {
 
        
     </head>
+

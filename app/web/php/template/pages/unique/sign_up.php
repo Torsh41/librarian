@@ -1,7 +1,6 @@
-<!-- Подключаем заголовок -->
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
+<!-- Подключаем заголовок -->
 
-<!-- <?php print_r($_SESSION['user_ID']); ?> -->
 <!-- Взаимодействие с формой -->
 <?php
     $error_message = "";
