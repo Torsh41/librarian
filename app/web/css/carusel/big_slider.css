@@ -1,0 +1,57 @@
+.big_slider{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 590px;
+    overflow: hidden;
+}
+.big_carusel_with_item{
+    display: flex;
+    align-items: center;
+    width: 4500px;
+    gap: 55px;
+}
+.big_car_item{
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    min-width: 300px;
+}
+.big_car_item>img{
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    min-height: 386px;
+    max-width: 350px;
+    min-width: 300px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+}
+.big_car_item>div.big_sl_name_work{
+    width: 300px;
+    height: 40px;
+}
+
+.big_car_item:nth-child(6) img{
+    width: 350px;
+    height: 450px;
+}
+
+.big_buttons_left_right{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    top: 245px;
+}
+.big_buttons_left_right > div{
+    width: 100px;
+    padding: 0 40px;
+    opacity: 0.5;
+    transition: opacity 2s;
+}
+.big_buttons_left_right > div:hover{
+    opacity: 0.75;
+}

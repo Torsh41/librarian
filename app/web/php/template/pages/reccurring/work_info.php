@@ -1,13 +1,7 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
-<!-- Подключаем заголовок -->
-
-<body>
-<!-- Подключаем header -->
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
-
 <?php
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/php/function/ConnectionDB.php');
+session_start(); // Начало сессии для проверки залогиненности пользователя
 
 $db = new ConnectionDB();
 
@@ -27,8 +21,33 @@ if ($bookId) {
 
 $relatedBooks = $db->getRandomBooks();
 
+// Проверка, залогинен ли пользователь
+$isLoggedIn = isset($_SESSION['user_id']);
+$userId = $isLoggedIn ? $_SESSION['user_id'] : null;
+
+// Обработка отправки формы оценки
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rating'])) {
+    $rating = intval($_POST['rating']);
+    if ($isLoggedIn && $rating >= 1 && $rating <= 5) {
+        $db->updateBookRating($bookId, $rating);
+    }
+}
+
+// Обработка добавления в избранное
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_favorite'])) {
+    if ($isLoggedIn) {
+        $db->addBookToFavorites($userId, $bookId);
+    }
+}
+
 ?>
 
+<!-- Подключаем заголовок -->
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/main/header.php'); ?>
+
+<body>
+<!-- Подключаем header -->
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/php/template/elements/el_header.php'); ?>
 
 <!-- Основное содержание страницы книги -->
 <main class="main_work_info">
@@ -63,7 +82,7 @@ $relatedBooks = $db->getRandomBooks();
                 </div>
                 <div class="cover_categorii">
                     <div class="categorii">
-                        <div class="name_categor">Категории: </div>
+                        <div class="name_categor">Категория: </div>
                         <?php if (isset($bookInfo['tags'])) : ?>
                             <?php
                             $categoryName = $db->getCategoryNameById($bookInfo['tags']);
@@ -72,12 +91,28 @@ $relatedBooks = $db->getRandomBooks();
                                 <?= htmlspecialchars($categoryName) ?>
                             </a>
                         <?php endif; ?>
-
                     </div>
                 </div>
                 <div>
-                    Добавить в избранное
-                    <img src="/assets/icons/flag-96.png" alt="флажок js+db" class="flag-icon">
+                    <?php if ($isLoggedIn) : ?>
+                        <form method="post">
+                            <label for="rating">Оцените книгу:</label>
+                            <select name="rating" id="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button type="submit">Отправить</button>
+                        </form>
+                        <form method="post">
+                            <input type="hidden" name="add_favorite" value="1">
+                            <button type="submit">Добавить в избранное</button>
+                        </form>
+                    <?php else : ?>
+                        <p>Войдите в систему, чтобы оценить книгу или добавить её в избранное.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

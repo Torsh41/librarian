@@ -17,9 +17,11 @@ $meta = [
         'description'=>'Тут можно удобно прочитать книги, учебники, конспекты и т.д.',
         'scripts'=>[
             '/scripts/carusel/little_slider.js',
+            '/scripts/carusel/big_slider.js',
         ],
         'style'=>[
             '/css/carusel/little_slider.css',
+            '/css/carusel/big_slider.css',
             '/css/pages/index.css',
         ], 
     ],

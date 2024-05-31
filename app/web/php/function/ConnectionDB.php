@@ -147,7 +147,15 @@ EOT; // @note: the '@' char in the middle of regex is escaped
         $category = $stmt->fetchColumn();
         return $category;
     }
+    public function updateBookRating($bookId, $rating) {
+        $stmt = $this->prepare("UPDATE resources SET rating = ? WHERE resources_ID = ?");
+        $stmt->execute([$rating, $bookId]);
+    }
 
+    public function addBookToFavorites($userId, $bookId) {
+        $stmt = $this->prepare("INSERT INTO favorites (user_ID, resources_ID) VALUES (?, ?)");
+        $stmt->execute([$userId, $bookId]);
+    }
     public function getBookId($bookId) {
         $sql = "SELECT
                     r.resources_ID,
