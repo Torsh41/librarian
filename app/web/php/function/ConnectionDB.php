@@ -135,6 +135,15 @@ EOT;
         $category = $stmt->fetchColumn();
         return $category;
     }
+    public function updateBookRating($bookId, $rating) {
+        $stmt = $this->prepare("UPDATE resources SET rating = ? WHERE resources_ID = ?");
+        $stmt->execute([$rating, $bookId]);
+    }
+
+    public function addBookToFavorites($userId, $bookId) {
+        $stmt = $this->prepare("UPDATE users SET favorite_books = CONCAT(IFNULL(favorite_books, ''), ?) WHERE user_ID = ?");
+        $stmt->execute([$bookId . ',', $userId]);
+    }
     public function getBookId($bookId) {
         $sql = "SELECT 
                     r.resources_ID, 
