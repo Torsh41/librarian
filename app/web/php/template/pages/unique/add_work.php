@@ -96,9 +96,9 @@
     ?>
     
     <!-- Основное содержание формы добавления файла -->
-    <div>
+    <div class="main_add_work">
         <h2>Добавление файла</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" enctype="multipart/form-data" class="add_work_form1">
             <label for="fileUpload">
                 <img src="placeholder.png" alt="Обложка"> Нажмите или перетащите изображение на обложку
             </label>
@@ -108,10 +108,10 @@
             <input type="file" name="resource" >
 
             <label>Укажите короткое название</label>
-            <input type="text" name="title" placeholder="Короткое название" >
+            <input type="text" name="title" placeholder="Короткое название" class="add_work_text">
 
             <label>Укажите полное название</label>
-            <input type="text" name="publication_name" placeholder="Полное название" >
+            <input type="text" name="publication_name" placeholder="Полное название" class="add_work_text">
 
             <label>Укажите тип произведения</label>
             <select name="type" >
@@ -125,7 +125,7 @@
             </select>
 
             <label>Укажите авторов (если они есть)</label>
-            <input type="text" name="author" placeholder="Авторы" >
+            <input type="text" name="author" placeholder="Авторы" class="add_work_text">
 
             <label>Укажите категории</label>
             <select name="category" >
@@ -141,7 +141,9 @@
             <label>Напишите краткое описание</label>
             <textarea name="description" placeholder="Текст" ></textarea>
             
-            <button type="submit" >Отправить на модерацию</button>
+            <div class="button_cover_add_work">    
+                <button type="submit" >Отправить на модерацию</button>
+            </div>
         </form>
     </div>
 
