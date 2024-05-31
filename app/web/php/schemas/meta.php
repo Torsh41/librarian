@@ -68,10 +68,10 @@ $meta = [
         'title'=> 'Личный кабинет',
         'description'=> 'Личный кабинет',
         'scripts'=>[
-            '/scripts/carusel/little_slider.js',
+            '/scripts/pages/cabinet_changh_vkladku.js',
         ],
         'style'=>[
-            '/css/carusel/little_slider.css',
+            '/css/pages/cabinet.css',
         ],
     ],
 ];

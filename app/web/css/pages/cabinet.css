@@ -1,0 +1,371 @@
+body.body_cabinet{
+    background: linear-gradient(106.64deg, #17CFAE -13.15%, #2E76E3 29.66%, #143566 72.48%, #290BE3 115.3%);
+    
+    width: 100%;
+}/*Вроде бы одна строчка но один из самых красивых результатов*/
+
+
+/*Расставляем все по местам*/
+.main_cabinet{
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 6%;
+    margin-right: 4%;
+    width: 90%;
+
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+
+.upper_info_and_exit_cabinet{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.avatar_profil_cabinet{
+    position: absolute;
+}
+
+
+.vkladki_i_soderzhimoe{
+    display: flex;
+    flex-direction: row;
+}
+
+.vkladki, .soderzhimoe{
+    display: flex;
+    flex-direction: column;
+}
+
+.favorit_name_and_sort{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+
+/*Скрываем две вкладки*/
+.info_about_user_cabinet, .settings_cabinet{
+    display: none;
+    /* pointer-events: none; */
+}
+
+
+
+
+
+
+
+
+/*Стили для кнопок вкладок*/
+img.favorit_img, img.setting_img, 
+div.user_img>div{
+    height: 50px;
+    width: 50px;
+}
+.vkladki > div{
+    padding: 25px 15px;
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+
+    margin-bottom: 40px;
+}
+.vkladki{
+    margin-top: 160px;
+}
+.vkladki > .user_img, .vkladki > .setting_img{
+    background-color: #082C63;
+}
+
+/*Изменение цвета картинок вкладок*/
+img.setting_img, img.user_img {
+    filter: invert(1);
+}
+
+
+
+
+
+/*Для всех иконок пользователя*/
+div.user_icon_cover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+    /* background-color: #FFFFFF; */
+    border-radius: 100%;
+}
+div.user_icon_cover > img{
+    height: 80%;
+    width: 80%;
+    padding: 0 3%;
+    padding-bottom: 6%;
+}
+
+
+
+
+
+
+/*Главная иконка пользователя*/
+div.avatar_profil_cabinet{
+    top:-70px;
+    left: -50px;
+    height: 260px;
+    width: 260px;
+    background-color: #D9D9D9;
+    border: 5px solid #FFFFFF;
+}
+div.avatar_profil_cabinet > img{
+    filter: invert(1);
+}
+/*Верхняя менюшка*/
+div.upper_info_and_exit_cabinet{
+    margin-bottom: 15px;
+}
+div.name_user_cabinet_first, div.exit_cabinet{
+    color: #FFFFFF;
+}
+div.name_user_cabinet_first{
+    font-size: 40px;
+    font-weight: bold;
+    margin-left: 240px;
+}
+div.exit_cabinet{
+    font-size: 32px;
+    margin-right: 50px;
+}
+
+
+
+
+
+
+
+
+/*Общее оформление всех вкладок*/
+.soderzhimoe{
+    background-color: #FFFFFF;
+    min-height: 100vh;
+    border-radius: 55px;
+
+    flex-grow: 1;
+
+    padding: 0 95px;
+}
+div.name_vkladki{
+    color: #17062D;
+    font-size: 48px;
+    padding: 7px 0;
+}
+.favorit_cabinet, .info_about_user_cabinet, .settings_cabinet{
+    flex-direction: column;
+}
+.info_about_user_cabinet>.name_vkladki,.settings_cabinet>.name_vkladki{
+    padding-left: 15px;
+    margin-left: 40px;
+    border-bottom: 2px solid #17062D;  
+    margin-bottom: 20px;  
+}
+
+
+
+
+/*Стиль для первой вкладки*/
+
+/*Избранные произведения*/
+.items_favorit_works{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 75px;
+}
+a.favorit_item_cabinet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+a.favorit_item_cabinet > img{
+    height: 230px;
+    width: 180px; 
+    background-color: #D9D9D9;
+
+    border-radius: 5px;
+}
+div.cabinet_name_work{
+    color: #17062D;
+    width: 180px;
+    height: 40px;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+/*Загаловок первой вкладки*/
+.favorit_name_and_sort{
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 2px solid #17062D;
+
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
+div.favorit_name_and_sort > .name_vkladki{
+    padding-left: 20px;
+}
+div.sort_img_and_selector{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+div.sort_img_and_selector>img{
+    width: 18px;
+    height: 18px;
+}
+
+
+
+
+
+
+
+
+
+/*Вторая вкладка*/
+.flex_for_added_in_cabinet{
+    margin-bottom: 60px;
+}
+
+.cabinet_aded_scrol{
+    height: 310px;
+    overflow-y: auto;
+}
+.Name_categori_aded{
+    font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.Podpiski_cabinet{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 60px;
+}
+.all_podpiski_cabinet{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+    overflow-y: auto;
+    height: 270px;
+}
+.ref_on_user_cabinet{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 135px;
+    width: 100px;
+}
+.all_podpiski_cabinet > div.name_user_cabinet{
+    color:#17062D;
+    margin-top: 5px;
+    height: 30px;
+    text-align: center;
+}
+.ref_on_user_cabinet > .cover_for_img_refuser{
+    height: 100px;
+    width: 100px;
+    border: 2px solid #17062D;
+    border-radius: 100%;
+}
+.name_podpiski_cabinet{
+    font-size: 40px;
+    padding: 5px 0;
+    flex-grow: 1;
+    border-top: 2px solid #17062D;
+    margin-bottom: 15px;
+}
+
+
+/*Третья страница*/
+.sami_settins_cabinet{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 90px;
+}
+.delete_accaunt{
+    width: 100%;
+    color: #E31818;
+    font-size: 32px;
+    text-decoration-color: #E31818;
+    text-align: center;
+    text-decoration: none;
+}
+.delete_accaunt:hover{
+    text-decoration: underline;
+}
+
+.sami_settins_cabinet > form{
+    margin-top: 20px;
+    display: flex;
+}
+form.change_photo{
+    align-items: center;
+    margin-bottom: 30px;
+}
+form.change_nickname_cabinet > label,
+form.change_email_cabinet > label,
+form.change_password_cabinet > label{
+    color: #17062D;
+    font-size: 32px;
+    width: 140px;
+    text-align: start;
+}
+form.change_photo{
+    width:100%;
+    justify-content: center;
+    gap: 50px;
+}
+label.fileUpload{
+    color: #17062D;
+    font-size: 32px;
+    text-align: start;
+}
+form.change_nickname_cabinet > input,
+form.change_email_cabinet > input,
+form.change_password_cabinet > input{
+    color: #17062D;
+    font-size: 32px;
+    font-size: 20px;
+    width: 240px;
+    border: none;
+    border-bottom: 1px solid #17062D;
+    margin: 0 20px;
+}
+form.change_nickname_cabinet > input::placeholder,
+form.change_email_cabinet > input::placeholder,
+form.change_password_cabinet > input::placeholder{
+    color: #BCBCBC;
+    font-size: 20px;
+}
+form.change_nickname_cabinet > button,
+form.change_email_cabinet > button,
+form.change_password_cabinet > button{
+    color: #FFFFFF;
+    font-size: 24px;
+    background: linear-gradient(92.36deg, rgba(24, 92, 195, 0.8) 0%, rgba(8, 44, 99, 0.8) 96.42%);
+    padding: 4px 20px;
+
+}
