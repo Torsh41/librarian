@@ -33,6 +33,7 @@
 }
 .tags_and_user_info_work_info{
     flex-grow: 1;
+    max-width: 30%;
 }
 .img_and_action_work_info{
     display: flex;

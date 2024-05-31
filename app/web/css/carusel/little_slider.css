@@ -98,3 +98,7 @@ div.little_sl_name_work{
     justify-content: flex-start;
     padding: 12px 0;
 }
+
+.catalog_name_work{
+    width: 180px;
+}

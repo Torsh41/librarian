@@ -80,9 +80,9 @@ ul.ref_on_sign{
 
 
 /*Это нужно поменять с помощью php или js, типа если пользователь авторизовался это показать а авторизацию с входом убрать*/
-.header_add_work, .header_user{
+/* .header_add_work, .header_user{
     display: none;
-}
+} */
 
 
 
